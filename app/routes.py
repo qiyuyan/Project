@@ -1,6 +1,6 @@
 from flask import request, session, render_template, redirect, Blueprint, url_for, jsonify, abort
-from app.database import *
-from app.business import *
+from .database import *
+from .business import *
 
 bp = Blueprint('routes', __name__)
 

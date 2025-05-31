@@ -1,0 +1,4 @@
+venv/
+*.pyc
+__pycache__/
+instance/dev*.db  # 忽略开发测试数据库
