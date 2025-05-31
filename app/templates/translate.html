@@ -1,0 +1,96 @@
+<!-- templates/index.html -->
+{% extends 'base.html' %}
+
+{% block page_content %}
+<div class="">
+  <div class="page-title">
+    <div class="title_left">
+      <h3>配方翻译 Translate Formula</h3>
+    </div>
+    <div class="title_right">
+    </div>
+  </div>
+  <div class="clearfix"></div>
+  <div class="row">
+    <!-- form -->
+    <div class="col-md-12 col-sm-12  ">
+      <div class="x_panel">
+        <div class="x_title">
+          <h2>翻译输入 Translation Input</h2>
+          <ul class="nav navbar-right panel_toolbox"></ul>
+          <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+          <br />
+          <form class="form-horizontal form-label-left" method="post" action="/translate_submit">
+            <div>
+              <label class="col-form-label col-md-3 label-align">翻译方向 Translation Ddirection</label>
+              <div class="col-md-9">
+                <div id="direction">
+                  <input type="radio" id="en_to_cn" name="direction" value="en_to_cn" checked><label style="margin-right: 20px;" for="en_to_cn">英译中 EN to CN</label>
+
+                  <input type="radio" id="cn_to_en" name="direction" value="cn_to_en"><label for="cn_to_en">中译英 CN to EN</label><br>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-md-3 col-sm-3 ">原文 Original</label>
+              <div class="col-md-9 col-sm-9 ">
+                  <textarea name="from_sentence" class="resizable_textarea form-control" placeholder="请输入要翻译的段落 Please Paste Your Paragraph Needs Translation"></textarea>
+              </div>
+            </div>
+            <div class="ln_solid"></div>
+
+            <div class="form-group row">
+              <div class="col-md-12" style="text-align: center;">
+                <button type="button" class="btn btn-primary" onclick="location.reload()">重置 Reset</button>
+                <button type="submit" class="btn btn-success">翻译 Translate</button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div class="x_content">
+          <br />
+          <h2>翻译结果 Translation Result</h2>
+          <div class="bs-example" data-example-id="simple-jumbotron">
+            <div class="jumbotron">
+              <p id="translate_result" style="text-align:justify;font-size:12px">{{ translate_result }}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="x_content">
+          <br />
+          <h2>新词收录 Words Not Translated</h2>
+          <form class="form-horizontal form-label-left" method="post" action="/translate_new_word">
+            <div class="form-group">
+              <div class="col-sm-12">
+                <div class="input-group">
+                    <input name="new_word" type="text" class="form-control" placeholder="输入任何没被收录的单词 Please Suggest Any New Word Not Translated">
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-primary">Send!</button>
+                    </span>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        {% if username == 'admin' %}
+        <div class="x_content">
+          <br />
+          <h2>下载新词记录</h2>
+            <div class="col-sm-12">
+              <a href="{{ url_for('static', filename='new_words.txt') }}" target="_blank">
+                <button type="button" class="btn btn-primary">打开新词记录</button>
+              </a>
+            </div>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    <!-- /form -->
+  </div>
+</div>
+{% endblock %}

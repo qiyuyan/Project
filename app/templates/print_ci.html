@@ -1,0 +1,205 @@
+<!-- templates/index.html -->
+{% extends 'base.html' %}
+
+{% block page_content %}
+<style>
+    .main-container {
+        background-color: #cccccc; /* 暗灰色背景 */
+        margin: 0;
+        padding: 20px 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .a4-page {
+        background-color: white;
+        width: 210mm;
+        min-height: 297mm;
+        margin: 20px auto;
+        padding: 1.27cm 2.5cm;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        box-sizing: border-box;
+    }
+    @media print {
+      body * {
+          visibility: hidden;
+      }
+      .a4-page, .a4-page * {
+          visibility: visible;
+      }
+      .a4-page {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 210mm;
+          margin: 0;
+          padding: 1.27cm 2.5cm;
+          box-shadow: none;
+      }
+      .payment-method-img {
+        max-width: 25% !important; /* 使用毫米单位更精确 */
+        height: auto !important;
+      }
+      @page {
+          size: A4;
+          margin: 0;
+      }
+    }
+</style>
+
+<div class="">
+  <div class="page-title">
+    <div class="title_left">
+      <h3>A4 Document Printing</h3>
+    </div>
+    <div class="title_right">
+      <!-- this row will not appear when printing -->
+      <div class="row">
+        <div class="">
+          <button class="btn btn-primary pull-right" style="margin-right: 5px;" onclick="window.print();"><i class="fa fa-print"></i> Print</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="clearfix"></div>
+
+  <div class="col-md-12 col-sm-12 main-container">
+    <!-- 第一个 A4 页面 -->
+    <div style="justify-content: flex-start" class="a4-page" role="main">
+      <div class="">
+        <div class="row">
+          <section class="content invoice">
+            <!-- title row -->
+            <div class="row">
+              <table style="margin-bottom:5mm" class="invoice-header">
+                <tbody>
+                    <tr>
+                      <td style="width:30%;"><h1>
+                        <img style="max-width:100%;height:auto;" src="{{ url_for('static', filename='images/logo_en.png') }}">
+                      </h1></td>
+                      <td><h1>
+                        <small style="font-size:24px;" class="pull-right">COMMERCIAL INVOICE</small>
+                      </h1></td>
+                    </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- info row -->
+            <table style="width:100%;margin-bottom:5mm;" class="row invoice-info">
+              <tbody>
+                <tr style="width:100%;" >
+                  <td style="width:50%;" colspan="2">
+                    From
+                    <address>
+                      <strong>{{ from_company }}</strong>
+                      <br>{{ from_address }}
+                      <br>Phone: +86 021 5786 6793
+                      <br>Email: info@fubei.pet
+                    </address>
+                  </td>
+                  <td style="width:50%;" colspan="2">
+                    To
+                    <address>
+                        <strong>{{ to_company }}</strong>
+                        <br>{{ to_address }}
+                        <br>Phone: {{ to_phone }}
+                        <br>Email: {{ to_email }}
+                    </address>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="width:10%;">No.</td>
+                  <td style="width:40%;">#007612</td>
+                  <td style="width:10%;">No.</td>
+                  <td style="width:40%;">#007612</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <!-- Table row -->
+            <div class="row">
+              <div class="table">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Item</th>
+                      <th>Qty</th>
+                      <th>Unit Price</th>
+                      <th>Unit</th>
+                      <th>Subtotal</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>Call of Duty</td>
+                      <td>1</td>
+                      <td>59.60</td>
+                      <td>kg</td>
+                      <td>59.60</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.col -->
+            </div>
+            <!-- /.row -->
+
+            <div class="row">
+              <!-- accepted payments column -->
+              <table style="width:100%;">
+                <tbody>
+                  <tr>
+                    <td style="width:50%;">
+                      <p class="lead">
+                        Payment Methods:
+                        <img class="payment-method-img" style="max-width:15mm;height:auto;" src="{{ url_for('static', filename='images/bank transfer.png') }}" alt="Bank Transfer">
+                      </p>
+                    </td>
+                    <td>
+                      <div>
+                        <table class="table">
+                          <tbody>
+                            <tr>
+                              <th>Total:</th>
+                              <td style="text-align:right;">$265.24</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </td>
+                  </tr>
+              </table>
+              <table style="width:100%;">
+                <tbody>
+                  <tr>
+                    <p>
+                      BENEFICIARY: {{ bank_beneficiary }}
+                      <br>BENEFICIARY ADD: {{ bank_beneficiary }}
+                      <br>BENEFICIARY A/C: {{ bank_beneficiary_ac }}
+                      <br>BANK NAME: {{ bank_bank_name }}
+                      <br>BANK ADD: {{ bank_bank_add }}
+                      <br>SWIFT CODE: {{ bank_swift_code }}
+                      <br>CURRENCY: {{ bank_currency }} ONLY
+                    </p>
+                  </tr>
+                  <tr>
+                    <p class="text-muted well well-sm no-shadow" style="margin-top: 1px;text-align: justify;">
+                      Notice: Fubei accepts only either of above payment method. In case there is any bank account change required, please check via phone +86 021 5786 6793 to avoid Mail Fraud and scams.
+                    </p>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+    <!-- /page content -->
+    <!-- 可以继续添加更多 A4 页面 -->
+  </div>
+</div>
+{% endblock %}
