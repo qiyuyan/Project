@@ -20,7 +20,7 @@ COPY . .
 RUN apt-get update && apt-get install -y \
     build-essential \
     python3-dev \
-    default-libmysqlclient-dev \  # 新增
+    default-libmysqlclient-dev \
     && rm -rf /var/lib/apt/lists/*
 
 # 设置环境变量
