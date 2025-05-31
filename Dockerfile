@@ -1,5 +1,5 @@
 # 使用国内镜像源作为基础镜像（可选）
-FROM registry.cn-hangzhou.aliyuncs.com/library/python:3.9-slim
+FROM ccr.ccs.tencentyun.com/library/python:3.9-slim
 
 WORKDIR /app
 
