@@ -1,0 +1,17 @@
+<!-- templates/index.html -->
+{% extends 'base.html' %}
+
+{% block page_content %}
+  <div class="">
+    <div class="col-md-12">
+      <div class="col-middle">
+        <div class="text-center text-center">
+            <h1 class="error-number">403</h1>
+            <h2>无权访问 Access denied</h2>
+            <p>无权访问此页面 <a style="text-decoration: underline;" href="/login">跳转到登录</a></p>
+            <p>Full authentication is required to access this resource. <a style="text-decoration: underline;" href="/login">Jump to Login</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
