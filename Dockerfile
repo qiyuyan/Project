@@ -1,6 +1,13 @@
-FROM python:3.9-slim
+# 使用国内镜像源作为基础镜像（可选）
+FROM registry.cn-hangzhou.aliyuncs.com/library/python:3.9-slim
 
 WORKDIR /app
+
+# 配置 pip 国内源
+RUN mkdir -p /root/.pip && \
+    echo "[global]" > /root/.pip/pip.conf && \
+    echo "index-url = https://pypi.tuna.tsinghua.edu.cn/simple" >> /root/.pip/pip.conf && \
+    echo "trusted-host = pypi.tuna.tsinghua.edu.cn" >> /root/.pip/pip.conf
 
 # 安装系统依赖（SQLite需要libsqlite3-dev）
 RUN apt-get update && apt-get install -y \
